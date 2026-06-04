@@ -17,10 +17,10 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
   },
   openGraph: {
-    url: 'https://meet.livekit.io',
+    url: 'https://tanhung-meeting.vercel.app/',
     images: [
       {
-        url: 'D:\livekit\public\images\doantanhung-graph.jpg',
+        url: 'https://tanhung-meeting.vercel.app/images/doantanhung-graph.jpg',
         width: 2000,
         height: 1000,
         type: 'image/png',
