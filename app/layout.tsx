@@ -11,19 +11,21 @@ export const metadata: Metadata = {
   },
   description:
     'Trung tâm điều hành Đoàn phường Tân Hưng, nơi kết nối các cơ sở Đoàn trong phường và tổ chức các cuộc họp trực tuyến hiệu quả.',
+  metadataBase: new URL('https://tanhung-meeting.vercel.app'),
   twitter: {
     creator: '@livekitted',
     site: '@livekitted',
     card: 'summary_large_image',
+    images: ['/images/doantanhung-graph.jpg'],
   },
   openGraph: {
     url: 'https://tanhung-meeting.vercel.app/',
     images: [
       {
-        url: 'https://tanhung-meeting.vercel.app/images/doantanhung-graph.jpg',
+        url: '/images/doantanhung-graph.jpg',
         width: 2000,
         height: 1000,
-        type: 'image/png',
+        type: 'image/jpeg',
       },
     ],
     siteName: 'Trung tâm điều hành Đoàn phường Tân Hưng',
