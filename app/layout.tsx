@@ -16,13 +16,13 @@ export const metadata: Metadata = {
     creator: '@livekitted',
     site: '@livekitted',
     card: 'summary_large_image',
-    images: ['/images/doantanhung-graph.jpg'],
+    images: ['https://tanhung-meeting.vercel.app/images/doantanhung-graph.jpg'],
   },
   openGraph: {
     url: 'https://tanhung-meeting.vercel.app/',
     images: [
       {
-        url: '/images/doantanhung-graph.jpg',
+        url: 'https://tanhung-meeting.vercel.app/images/doantanhung-graph.jpg',
         width: 2000,
         height: 1000,
         type: 'image/jpeg',
