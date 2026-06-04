@@ -20,10 +20,10 @@ export const metadata: Metadata = {
     url: 'https://meet.livekit.io',
     images: [
       {
-        url: 'https://meet.livekit.io/images/livekit-meet-open-graph.png',
+        url: 'D:\\livekit\\public\\images\\doantanhung-graph.jpg',
         width: 2000,
         height: 1000,
-        type: 'image/png',
+        type: 'image/jpg',
       },
     ],
     siteName: 'Trung tâm điều hành Đoàn phường Tân Hưng',
@@ -36,10 +36,10 @@ export const metadata: Metadata = {
     apple: [
       {
         rel: 'apple-touch-icon',
-        url: '/images/livekit-apple-touch.png',
+        url: '/images/logo_doan.png',
         sizes: '180x180',
       },
-      { rel: 'mask-icon', url: '/images/livekit-safari-pinned-tab.svg', color: '#070707' },
+      { rel: 'mask-icon', url: '/images/logo_doan.png', color: '#070707' },
     ],
   },
 };
