@@ -175,8 +175,8 @@ export default function Page() {
         </div>
         <Suspense fallback="Loading">
           <Tabs>
-            <DemoMeetingTab label="Demo" />
-            <CustomConnectionTab label="Custom" />
+            <DemoMeetingTab label="Cơ sở Đoàn" />
+            <CustomConnectionTab label="Phòng riêng" />
           </Tabs>
         </Suspense>
       </main>
