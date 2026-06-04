@@ -65,6 +65,9 @@ export function PageClientImpl(props: {
     }
     const connectionDetailsResp = await fetch(url.toString());
     const connectionDetailsData = await connectionDetailsResp.json();
+    if (!connectionDetailsResp.ok) {
+      throw new Error(connectionDetailsData?.error ?? 'Failed to load connection details');
+    }
     setConnectionDetails(connectionDetailsData);
   }, []);
   const handlePreJoinError = React.useCallback((e: any) => console.error(e), []);

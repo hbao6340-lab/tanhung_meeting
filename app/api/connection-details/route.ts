@@ -61,8 +61,9 @@ export async function GET(request: NextRequest) {
     });
   } catch (error) {
     if (error instanceof Error) {
-      return new NextResponse(error.message, { status: 500 });
+      return NextResponse.json({ error: error.message }, { status: 500 });
     }
+    return NextResponse.json({ error: 'Unknown error' }, { status: 500 });
   }
 }
 

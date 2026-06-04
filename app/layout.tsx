@@ -6,11 +6,11 @@ import { Toaster } from 'react-hot-toast';
 
 export const metadata: Metadata = {
   title: {
-    default: 'LiveKit Meet | Conference app build with LiveKit open source',
+    default: 'Trung tâm điều hành Đoàn phường Tân Hưng',
     template: '%s',
   },
   description:
-    'LiveKit is an open source WebRTC project that gives you everything needed to build scalable and real-time audio and/or video experiences in your applications.',
+    'Trung tâm điều hành Đoàn phường Tân Hưng, nơi kết nối các cơ sở Đoàn trong phường và tổ chức các cuộc họp trực tuyến hiệu quả.',
   twitter: {
     creator: '@livekitted',
     site: '@livekitted',
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
         type: 'image/png',
       },
     ],
-    siteName: 'LiveKit Meet',
+    siteName: 'Trung tâm điều hành Đoàn phường Tân Hưng',
   },
   icons: {
     icon: {

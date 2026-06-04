@@ -11,7 +11,7 @@ function Tabs(props: React.PropsWithChildren<{}>) {
 
   const router = useRouter();
   function onTabSelected(index: number) {
-    const tab = index === 1 ? 'custom' : 'demo';
+    const tab = index === 1 ? 'Phòng riêng' : 'Cơ sở Đoàn';
     router.push(`/?tab=${tab}`);
   }
 
@@ -167,15 +167,10 @@ export default function Page() {
         <div className="header">
           <img src="/images/livekit-meet-home.svg" alt="LiveKit Meet" width="360" height="45" />
           <h2>
-            Open source video conferencing app built on{' '}
-            <a href="https://github.com/livekit/components-js?ref=meet" rel="noopener">
-              LiveKit&nbsp;Components
-            </a>
-            ,{' '}
-            <a href="https://livekit.io/cloud?ref=meet" rel="noopener">
-              LiveKit&nbsp;Cloud
+            Ứng dụng điểm cầu Thanh niên Tân Hưng{' '}
+            <a>
             </a>{' '}
-            and Next.js.
+            Và được viết trên Next.js.
           </h2>
         </div>
         <Suspense fallback="Loading">
@@ -186,13 +181,12 @@ export default function Page() {
         </Suspense>
       </main>
       <footer data-lk-theme="default">
-        Hosted on{' '}
-        <a href="https://livekit.io/cloud?ref=meet" rel="noopener">
-          LiveKit Cloud
+        Được phát triển bởi{' '}
+        <a href="https://www.facebook.com/p/Tu%E1%BB%95i-tr%E1%BA%BB-ph%C6%B0%E1%BB%9Dng-T%C3%A2n-H%C6%B0ng-100069747550183/" rel="noopener">
+          Tuổi trẻ Tân Hưng
         </a>
-        . Source code on{' '}
-        <a href="https://github.com/livekit/meet?ref=meet" rel="noopener">
-          GitHub
+        . Nguồn được lưu hành nội bộ{' '}
+        <a>
         </a>
         .
       </footer>
