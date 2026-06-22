@@ -56,9 +56,17 @@ export function PageClientImpl(props: {
   const [connectionDetails, setConnectionDetails] = React.useState<ConnectionDetails | undefined>(
     undefined,
   );
+  const [connectionError, setConnectionError] = React.useState<string | null>(null);
+
+  const handlePreJoinError = React.useCallback((e: any) => {
+    console.error(e);
+    const message = typeof e === 'string' ? e : typeof e?.message === 'string' ? e.message : 'Failed to load connection details';
+    setConnectionError(message);
+  }, []);
 
   const handlePreJoinSubmit = React.useCallback(async (values: LocalUserChoices) => {
     setPreJoinChoices(values);
+    setConnectionError(null);
     const url = new URL(CONN_DETAILS_ENDPOINT, window.location.origin);
     url.searchParams.append('roomName', props.roomName);
     url.searchParams.append('participantName', values.username);
@@ -68,24 +76,43 @@ export function PageClientImpl(props: {
     if (props.isHost) {
       url.searchParams.append('host', 'true');
     }
-    const connectionDetailsResp = await fetch(url.toString());
-    const connectionDetailsData = await connectionDetailsResp.json();
-    if (!connectionDetailsResp.ok) {
-      throw new Error(connectionDetailsData?.error ?? 'Failed to load connection details');
+    try {
+      const connectionDetailsResp = await fetch(url.toString());
+      const connectionDetailsData = await connectionDetailsResp.json();
+      if (!connectionDetailsResp.ok) {
+        throw new Error(connectionDetailsData?.error ?? 'Failed to load connection details');
+      }
+      setConnectionDetails(connectionDetailsData);
+    } catch (e) {
+      handlePreJoinError(e);
     }
-    setConnectionDetails(connectionDetailsData);
+  }, [props.roomName, props.region, props.isHost]);
+
+  const handleRetry = React.useCallback(() => {
+    setConnectionDetails(undefined);
+    setConnectionError(null);
+    setPreJoinChoices(undefined);
   }, []);
-  const handlePreJoinError = React.useCallback((e: any) => console.error(e), []);
 
   return (
     <main data-lk-theme="default" style={{ height: '100%' }}>
       {connectionDetails === undefined || preJoinChoices === undefined ? (
         <div style={{ display: 'grid', placeItems: 'center', height: '100%' }}>
-          <PreJoin
-            defaults={preJoinDefaults}
-            onSubmit={handlePreJoinSubmit}
-            onError={handlePreJoinError}
-          />
+          <div style={{ maxWidth: '24rem', width: '100%', padding: '1rem' }}>
+            {connectionError && (
+              <div style={{ marginBottom: '1rem', padding: '0.75rem', background: '#7f1d1d', borderRadius: '0.5rem' }}>
+                <p style={{ margin: 0, fontSize: '0.875rem' }}>{connectionError}</p>
+                <button className="lk-button" onClick={handleRetry} style={{ marginTop: '0.5rem' }}>
+                  Retry
+                </button>
+              </div>
+            )}
+            <PreJoin
+              defaults={preJoinDefaults}
+              onSubmit={handlePreJoinSubmit}
+              onError={handlePreJoinError}
+            />
+          </div>
         </div>
       ) : (
         <VideoConferenceComponent

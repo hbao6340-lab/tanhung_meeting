@@ -19,12 +19,18 @@ export async function GET(request: NextRequest) {
     const region = request.nextUrl.searchParams.get('region');
     const host = request.nextUrl.searchParams.get('host') === 'true';
     if (!LIVEKIT_URL) {
-      throw new Error('LIVEKIT_URL is not defined');
+      return new NextResponse(JSON.stringify({ error: 'LIVEKIT_URL is not defined' }), {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' },
+      });
     }
     const livekitServerUrl = region ? getLiveKitURL(LIVEKIT_URL, region) : LIVEKIT_URL;
     let randomParticipantPostfix = request.cookies.get(COOKIE_KEY)?.value;
-    if (livekitServerUrl === undefined) {
-      throw new Error('Invalid region');
+    if (!livekitServerUrl) {
+      return new NextResponse(JSON.stringify({ error: 'Invalid region' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
     }
 
     if (typeof roomName !== 'string') {

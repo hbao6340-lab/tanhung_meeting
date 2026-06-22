@@ -11,7 +11,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const roomService = new RoomServiceClient(LIVEKIT_URL, LIVEKIT_API_KEY, LIVEKIT_API_SECRET);
+    const serverUrl = new URL(LIVEKIT_URL);
+    serverUrl.protocol = 'https:';
+    const roomService = new RoomServiceClient(serverUrl.origin, LIVEKIT_API_KEY, LIVEKIT_API_SECRET);
 
     const { roomName } = await request.json();
     if (!roomName) {
