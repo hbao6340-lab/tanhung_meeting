@@ -1,24 +1,23 @@
 import { RoomServiceClient } from 'livekit-server-sdk';
 import { NextRequest, NextResponse } from 'next/server';
 
-const serverUrl = process.env.LIVEKIT_URL;
-const apiKey = process.env.LIVEKIT_API_KEY;
-const apiSecret = process.env.LIVEKIT_API_SECRET;
-
-if (!serverUrl || !apiKey || !apiSecret) {
-  throw new Error(
-    `LIVEKIT_URL: ${!!serverUrl}, LIVEKIT_API_KEY: ${!!apiKey}, LIVEKIT_API_SECRET: ${!!apiSecret}`,
-  );
-}
-
-const roomService = new RoomServiceClient(serverUrl, apiKey, apiSecret);
-
 export async function POST(request: NextRequest) {
   try {
+    const { LIVEKIT_URL, LIVEKIT_API_KEY, LIVEKIT_API_SECRET } = process.env;
+    if (!LIVEKIT_URL || !LIVEKIT_API_KEY || !LIVEKIT_API_SECRET) {
+      return NextResponse.json(
+        { error: 'Server misconfigured' },
+        { status: 500 },
+      );
+    }
+
+    const roomService = new RoomServiceClient(LIVEKIT_URL, LIVEKIT_API_KEY, LIVEKIT_API_SECRET);
+
     const { roomName, identity, trackSid, muted } = await request.json();
     if (!roomName || !identity || !trackSid || typeof muted !== 'boolean') {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
+
     await roomService.mutePublishedTrack(roomName, identity, trackSid, muted);
     return NextResponse.json({ success: true });
   } catch (e) {
