@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { PageClientImpl } from './PageClientImpl';
 import { isVideoCodec } from '@/lib/types';
+import { ConnectionDetails } from '@/lib/types';
 
 export default async function Page({
   params,
@@ -8,11 +9,11 @@ export default async function Page({
 }: {
   params: Promise<{ roomName: string }>;
   searchParams: Promise<{
-    // FIXME: We should not allow values for regions if in playground mode.
     region?: string;
     hq?: string;
     codec?: string;
     singlePC?: string;
+    host?: string;
   }>;
 }) {
   const _params = await params;
@@ -23,6 +24,7 @@ export default async function Page({
       : 'vp9';
   const hq = _searchParams.hq === 'true' ? true : false;
   const singlePC = _searchParams.singlePC !== 'false';
+  const isHost = _searchParams.host === 'true';
 
   return (
     <PageClientImpl
@@ -31,6 +33,7 @@ export default async function Page({
       hq={hq}
       codec={codec}
       singlePeerConnection={singlePC}
+      isHost={isHost}
     />
   );
 }

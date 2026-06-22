@@ -5,6 +5,7 @@ import { decodePassphrase } from '@/lib/client-utils';
 import { DebugMode } from '@/lib/Debug';
 import { KeyboardShortcuts } from '@/lib/KeyboardShortcuts';
 import { RecordingIndicator } from '@/lib/RecordingIndicator';
+import { AdminControls } from '@/lib/AdminControls';
 import { SettingsMenu } from '@/lib/SettingsMenu';
 import { ConnectionDetails } from '@/lib/types';
 import {
@@ -40,6 +41,7 @@ export function PageClientImpl(props: {
   hq: boolean;
   codec: VideoCodec;
   singlePeerConnection: boolean;
+  isHost: boolean;
 }) {
   const [preJoinChoices, setPreJoinChoices] = React.useState<LocalUserChoices | undefined>(
     undefined,
@@ -62,6 +64,9 @@ export function PageClientImpl(props: {
     url.searchParams.append('participantName', values.username);
     if (props.region) {
       url.searchParams.append('region', props.region);
+    }
+    if (props.isHost) {
+      url.searchParams.append('host', 'true');
     }
     const connectionDetailsResp = await fetch(url.toString());
     const connectionDetailsData = await connectionDetailsResp.json();
@@ -91,6 +96,7 @@ export function PageClientImpl(props: {
             hq: props.hq,
             singlePeerConnection: props.singlePeerConnection,
           }}
+          isHost={props.isHost}
         />
       )}
     </main>
@@ -105,6 +111,7 @@ function VideoConferenceComponent(props: {
     codec: VideoCodec;
     singlePeerConnection: boolean;
   };
+  isHost: boolean;
 }) {
   const keyProvider = new ExternalE2EEKeyProvider();
   const { worker, e2eePassphrase } = useSetupE2EE();
@@ -234,6 +241,7 @@ function VideoConferenceComponent(props: {
           chatMessageFormatter={formatChatMessageLinks}
           SettingsComponent={SHOW_SETTINGS_MENU ? SettingsMenu : undefined}
         />
+        <AdminControls roomName={props.connectionDetails.roomName} isHost={props.isHost} />
         <DebugMode />
         <RecordingIndicator />
       </RoomContext.Provider>

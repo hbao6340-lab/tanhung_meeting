@@ -47,9 +47,9 @@ function DemoMeetingTab(props: { label: string }) {
   const [sharedPassphrase, setSharedPassphrase] = useState(randomString(64));
   const startMeeting = () => {
     if (e2ee) {
-      router.push(`/rooms/${generateRoomId()}#${encodePassphrase(sharedPassphrase)}`);
+      router.push(`/rooms/${generateRoomId()}?host=true#${encodePassphrase(sharedPassphrase)}`);
     } else {
-      router.push(`/rooms/${generateRoomId()}`);
+      router.push(`/rooms/${generateRoomId()}?host=true`);
     }
   };
   return (
