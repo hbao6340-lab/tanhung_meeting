@@ -75,6 +75,11 @@ export function PageClientImpl(props: {
     }
     if (props.isHost) {
       url.searchParams.append('host', 'true');
+      try {
+        sessionStorage.setItem('livekit-host-flag', 'true');
+      } catch {
+        // sessionStorage not available
+      }
     }
     try {
       const connectionDetailsResp = await fetch(url.toString());
